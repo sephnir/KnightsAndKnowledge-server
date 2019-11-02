@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import s from "./navicon.scss";
 
 class NavIcon extends React.Component {
     constructor(props) {
@@ -16,8 +17,15 @@ class NavIcon extends React.Component {
 
     renderIcon() {
         return (
-            <a class="nav-link text-light" href={this.state.iconHref}>
-                <img src={this.state.iconLink} alt={this.state.iconText} />
+            <a
+                className={`${s.box} nav-link text-light`}
+                href={this.state.iconHref}
+            >
+                <img
+                    src={this.state.iconLink}
+                    className={s.icon}
+                    alt={this.state.iconText}
+                />
                 <br />
                 {this.state.iconText}
             </a>
