@@ -42,11 +42,19 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link text-light" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                <div class="ReactNavIcon" 
+                                    data-icon="{{ asset('img/icon/login.svg') }}" 
+                                    data-text="{{ __('Login') }}"
+                                    data-href="{{ route('login') }}"
+                                ></div>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link text-light" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <div class="ReactNavIcon" 
+                                        data-icon="{{ asset('img/icon/register.svg') }}"
+                                        data-text="{{ __('Register') }}"
+                                        data-href="{{ route('register') }}"
+                                    ></div>
                                 </li>
                             @endif
                         @else
