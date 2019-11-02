@@ -1,9 +1,30 @@
+@import "../../../../sass/variables";
+
 :local(.box) {
     height: 90px;
+    width: 70px;
     margin-left: 15px;
     text-align: center;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba($color: $black, $alpha: 1);
+        animation-name: highlight;
+        animation-duration: 0.5s;
+    }
+
+    @keyframes highlight {
+        from {
+            background-color: rgba($color: $black, $alpha: 0);
+        }
+        to {
+            background-color: rgba($color: $black, $alpha: 1);
+        }
+    }
 }
 
 :local(.icon) {
     height: 55px;
+    margin: 3px;
 }

@@ -11,15 +11,15 @@ class NavIcon extends React.Component {
         this.state = {
             iconLink: props.icon,
             iconText: props.text,
-            iconHref: props.href
+            callback: props.callback
         };
     }
 
     renderIcon() {
         return (
-            <a
+            <div
                 className={`${s.box} nav-link text-light`}
-                href={this.state.iconHref}
+                onClick={this.state.callback}
             >
                 <img
                     src={this.state.iconLink}
@@ -28,7 +28,7 @@ class NavIcon extends React.Component {
                 />
                 <br />
                 {this.state.iconText}
-            </a>
+            </div>
         );
     }
 
@@ -45,3 +45,5 @@ if (document.getElementsByClassName("ReactNavIcon")) {
         }
     );
 }
+
+export default NavIcon;

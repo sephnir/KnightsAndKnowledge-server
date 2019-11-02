@@ -21,65 +21,18 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-dark shadow-sm">
-            <div class="container">
-                <a class="navbar-brand text-light" href="{{ url('/') }}">
-                    <!-- {{ config('app.name', 'Laravel') }} -->
-                    <img src="{{ asset('img/logo.svg') }}" alt="{{ config('app.name', 'Laravel') }}" />
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            <li class="nav-item">
-                                <div class="ReactNavIcon" 
-                                    data-icon="{{ asset('img/icon/login.svg') }}" 
-                                    data-text="{{ __('Login') }}"
-                                    data-href="{{ route('login') }}"
-                                ></div>
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <div class="ReactNavIcon" 
-                                        data-icon="{{ asset('img/icon/register.svg') }}"
-                                        data-text="{{ __('Register') }}"
-                                        data-href="{{ route('register') }}"
-                                    ></div>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <div id="ReactNavBar"
+            data-appname="{{ config('app.name', 'Laravel') }}"
+            data-csrftoken="{{ csrf_token() }}"
+            data-name="{{ Auth::user() ? Auth::user()->name : '' }}"
+            data-homeurl="{{ url('/') }}"
+            data-loginurl="{{ route('login') }}"
+            data-logintext="{{ __('Login') }}"
+            data-logouturl="{{ route('logout') }}"
+            data-logouttext="{{ __('Logout') }}"
+            data-regisurl="{{ route('register') }}"
+            data-registext="{{ __('Register') }}"
+        ></div>
 
         <main class="py-4">
             @yield('content')
