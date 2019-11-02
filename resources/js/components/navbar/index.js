@@ -7,6 +7,7 @@ import s from "./navbar.scss";
 
 import logo from "../../../img/logo.svg";
 import loginIcon from "../../../img/icon/login.svg";
+import logoutIcon from "../../../img/icon/logout.svg";
 import regisIcon from "../../../img/icon/register.svg";
 
 import { withRouter } from "react-router-dom";
@@ -83,7 +84,7 @@ class Navbar extends React.Component {
             loginIconJSX = (
                 <li className="nav-item dropdown">
                     <NavIcon
-                        icon={loginIcon}
+                        icon={logoutIcon}
                         text={this.state.logoutText}
                         callback={this.logout}
                     ></NavIcon>
@@ -101,7 +102,15 @@ class Navbar extends React.Component {
                         <img src={logo} alt={this.state.appName} />
                     </a>
 
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
