@@ -31,7 +31,7 @@ class UserController extends Controller
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
         } else {
-            return response()->json(['error' => 'Unauthorised'], 401);
+            return response()->json(['error' => 'Invalid login'], 401);
         }
     }
 
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function details()
     {
-        $user = Auth::user();
+        $user = Auth::guard('api')->user();
         return response()->json(['success' => $user], $this->successStatus);
     }
 }
