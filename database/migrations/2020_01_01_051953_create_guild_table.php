@@ -13,10 +13,11 @@ class CreateGuildTable extends Migration
      */
     public function up()
     {
-        Schema::create('guild', function (Blueprint $table) {
+        Schema::create('guilds', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->foreign('creator_user_id')->references('id')->on('user');
+            $table->unsignedBigInteger('creator_user_id');
+            $table->foreign('creator_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateGuildTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('guild');
+        Schema::dropIfExists('guilds');
     }
 }

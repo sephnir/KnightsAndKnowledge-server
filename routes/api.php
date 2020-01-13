@@ -17,3 +17,5 @@ Route::post('/login', 'API\UserController@login');
 Route::post('/register', 'API\UserController@register');
 
 Route::post('/details', 'API\UserController@details');
+
+Route::post('/character/create', 'API\CharacterController@create_character');

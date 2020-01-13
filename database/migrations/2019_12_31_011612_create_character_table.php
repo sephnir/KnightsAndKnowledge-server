@@ -13,9 +13,10 @@ class CreateCharacterTable extends Migration
      */
     public function up()
     {
-        Schema::create('character', function (Blueprint $table) {
+        Schema::create('characters', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('name');
             $table->integer('experience');
             $table->integer('money');
@@ -30,6 +31,6 @@ class CreateCharacterTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('character');
+        Schema::dropIfExists('characters');
     }
 }

@@ -14,8 +14,10 @@ class CreateCharacterHoldsItemTable extends Migration
     public function up()
     {
         Schema::create('character_holds_item', function (Blueprint $table) {
-            $table->foreign('character_id')->references('id')->on('character');
-            $table->foreign('item_id')->references('id')->on('item');
+            $table->unsignedBigInteger('character_id');
+            $table->unsignedBigInteger('item_id');
+            $table->foreign('character_id')->references('id')->on('characters');
+            $table->foreign('item_id')->references('id')->on('items');
             $table->integer('quantity');
             $table->index(['character_id', 'item_id']);
             $table->timestamps();
