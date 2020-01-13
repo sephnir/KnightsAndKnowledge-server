@@ -37,4 +37,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * One to many relation. (users<=characters)
+     * 
+     * @return character
+     */
+    public function characters(){
+        return $this->hasMany(Character::class);
+    }
 }

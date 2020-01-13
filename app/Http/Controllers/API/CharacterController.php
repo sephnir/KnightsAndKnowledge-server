@@ -25,7 +25,7 @@ class CharacterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create_character(Request $request)
+    public function create(Request $request)
     {
         $user = Auth::guard('api')->user();
         $input = $request->all();
@@ -36,5 +36,24 @@ class CharacterController extends Controller
         $char->save();
 
         return response()->json(['success' => 'true'], $this->successStatus);
+    }
+
+    /**
+     * Character details api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function details(Request $request)
+    {
+        $user = Auth::guard('api')->user();
+        $input = $request->all();
+
+        $char = $user->characters;
+
+        if(array_key_exists('charId', $input)){
+            $char = $char->find($input['charId']);
+        }
+
+        return response()->json(['success' => $char], $this->successStatus);
     }
 }

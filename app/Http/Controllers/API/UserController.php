@@ -73,21 +73,4 @@ class UserController extends Controller
         $user = Auth::guard('api')->user();
         return response()->json(['success' => $user], $this->successStatus);
     }
-
-        /**
-     * Create character api
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create_character(Request $request)
-    {
-        $user = Auth::guard('api')->user();
-        $input = $request->all();
-
-        DB::table('character')->insert(
-            ['user_id' => $user->id, 'name' => $success['name'] ]
-        );
-
-        return response()->json(['success' => 'true'], $this->successStatus);
-    }
 }
