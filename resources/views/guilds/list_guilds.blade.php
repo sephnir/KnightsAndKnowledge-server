@@ -14,23 +14,26 @@
                         </div>
                     @endif
 
-                    <form class="form-inline" method="POST" action="{{ action('GuildController@create') }}">
+                    <form class="form-inline p-2" method="POST" action="{{ action('GuildController@create') }}">
                         @csrf
                         <input type="text" class="form-control" name="name" placeholder="Guild Name" />
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-primary">+</button>
                     </form>
-                    <table class="table table-hover table-striped">
-                        <th>Token</th>
-                        <th>Name</th>
-                        @foreach($guilds as $guild)
-                            <tr>
-                                <td>{{ $guild->guild_token }}</td>
-                                <td>{{ $guild->name }}</td>
-                            </tr>
-                        @endforeach
-                    </table>
 
-                    <div id="example"></div>
+                    @if($guilds->count() > 0)
+                        <table class="table table-hover table-striped">
+                            <th>Guild Name</th>
+                            <th>Guild Code</th>
+                            @foreach($guilds as $guild)
+                                <tr>
+                                    <td>{{ $guild->name }}</td>
+                                    <td>{{ $guild->guild_token }}</td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    @else
+                        <div class="p-5 text-center">No guilds created. Please create one to continue.</div>
+                    @endif
                 </div>
             </div>
         </div>

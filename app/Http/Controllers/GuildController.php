@@ -17,8 +17,7 @@ class GuildController extends Controller
      */
     public function index()
     {
-        // $guilds = Auth::user()->guilds();
-        $guilds = Guild::all();
+        $guilds = Auth::user()->guilds;
 
         return view('guilds/list_guilds', ['guilds' => $guilds]);
     }
@@ -38,7 +37,7 @@ class GuildController extends Controller
         $guild->creator_user_id = Auth::id();
         $guild->save();
 
-        return self::index();
+        return redirect('guilds');
     }
 
     private function unique_token()
