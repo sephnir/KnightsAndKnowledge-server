@@ -71,6 +71,11 @@ class UserController extends Controller
     public function details()
     {
         $user = Auth::guard('api')->user();
-        return response()->json(['success' => $user], $this->successStatus);
+        if($user){
+            return response()->json(['success' => $user], $this->successStatus);
+        }
+        else{
+            return response()->json(['error' => 'Session expired'], 401);
+        }
     }
 }
