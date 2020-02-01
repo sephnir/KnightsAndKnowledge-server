@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 
-use App\User;
 use App\Character;
 
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +49,7 @@ class CharacterController extends Controller
 
         $char = $user->characters;
 
-        if(array_key_exists('charId', $input)){
+        if (array_key_exists('charId', $input)) {
             $char = $char->find($input['charId']);
         }
 

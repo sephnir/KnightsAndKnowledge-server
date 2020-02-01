@@ -40,10 +40,16 @@ class User extends Authenticatable
 
     /**
      * One to many relation. (users<=characters)
-     * 
+     *
      * @return character
      */
-    public function characters(){
+    public function characters()
+    {
         return $this->hasMany(Character::class);
+    }
+
+    public function guilds()
+    {
+        return $this->hasMany('App\Guild', 'creator_user_id');
     }
 }

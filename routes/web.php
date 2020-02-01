@@ -12,13 +12,19 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check())
+        return view('home');
+    else
+        return view('auth/login');
 });
 
 Auth::routes();
 
+
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/guilds', 'GuildController@index')->middleware('auth')->name('guilds');
+Route::post('/create_guild', 'GuildController@create')->middleware('auth')->name('create_guild');
 
 // Route::get( '/{path?}', function(){
 //     return view('welcome');

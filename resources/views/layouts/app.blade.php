@@ -22,7 +22,7 @@
 <body>
     <div id="app">
         <div id="ReactNavBar"
-            data-appname="{{ config('app.name', 'Laravel') }}"
+            data-appname="{{ config('app.name', 'Knights and Knowledge') }}"
             data-csrftoken="{{ csrf_token() }}"
             data-name="{{ Auth::user() ? Auth::user()->name : '' }}"
             data-homeurl="{{ url('/') }}"

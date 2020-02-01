@@ -8,6 +8,10 @@
 @import "~bootstrap/scss/bootstrap";
 
 #content {
-    background: url("../img/bg/town-min.jpg");
+    //background: url("../img/bg/town-min.jpg");
     height: 100%;
+}
+
+.menu-btn {
+    padding: 5em 0;
 }

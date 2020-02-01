@@ -14,7 +14,15 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="btn btn-primary btn-lg btn-block menu-btn" href="{{route('guilds')}}" role="button">Manage Guilds</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a class="btn btn-primary btn-lg btn-block menu-btn" href="#" role="button">Display Statistics</a>
+                        </div>
+                    </div>
+
                     <div id="example"></div>
                 </div>
             </div>

@@ -54,6 +54,12 @@ class Navbar extends React.Component {
         $(eid).submit();
     }
 
+    renderUsername() {
+        if (this.state.name != undefined && this.state.name != "") {
+            return <div className="white">Welcome, {this.state.name}</div>;
+        }
+    }
+
     renderNavbar() {
         let loginIconJSX;
         let registerIconJSX;
@@ -113,20 +119,21 @@ class Navbar extends React.Component {
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
-
                     <div
                         className="collapse navbar-collapse"
                         id="navbarSupportedContent"
                     >
                         {/* Left Side Of Navbar */}
-                        <ul className="navbar-nav mr-auto"></ul>
-
+                        <ul className="navbar-nav mr-auto">
+                            {this.renderUsername()}
+                        </ul>
                         {/* Right Side Of Navbar */}
                         <ul className="navbar-nav ml-auto">
                             {/* Authentication Links */}
                             {loginIconJSX}
                             {registerIconJSX}
                         </ul>
+
                         <form
                             id="logout-form"
                             action={this.state.logoutUrl}
