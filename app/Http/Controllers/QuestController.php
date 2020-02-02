@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Guild;
+use App\Quest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 
-
-class GuildController extends Controller
+class QuestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($guild_token)
     {
-        $guilds = Auth::user()->guilds;
+        $guild = Auth::user()->guilds->where('guild_token', $guild_token)->first();
 
-        return view('guilds/list_guilds', ['guilds' => $guilds]);
+        $quests = $guild->quests;
+
+        return view('guilds/quests/list_quests', ['quests' => $quests, 'guild_name' => $guild->name]);
     }
 
     /**
@@ -27,31 +27,9 @@ class GuildController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $validatedData = $request->validate([
-            'name' => 'required'
-        ]);
-
-        $name = $validatedData->name;
-
-        $guild = new Guild;
-        $guild->name = $name;
-        $guild->guild_token = self::unique_token();
-        $guild->creator_user_id = Auth::id();
-        $guild->save();
-
-        return redirect('guilds');
-    }
-
-    private function unique_token()
-    {
-        do {
-            $token = strtoupper(Str::random(6));
-            $exist = Guild::where('guild_token', $token)->first();
-        } while (!empty($exist));
-
-        return $token;
+        //
     }
 
     /**
@@ -68,10 +46,10 @@ class GuildController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guild  $guild
+     * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function show(Guild $guild)
+    public function show(Quest $quest)
     {
         //
     }
@@ -79,10 +57,10 @@ class GuildController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Guild  $guild
+     * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guild $guild)
+    public function edit(Quest $quest)
     {
         //
     }
@@ -91,10 +69,10 @@ class GuildController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Guild  $guild
+     * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Guild $guild)
+    public function update(Request $request, Quest $quest)
     {
         //
     }
@@ -102,10 +80,10 @@ class GuildController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Guild  $guild
+     * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Guild $guild)
+    public function destroy(Quest $quest)
     {
         //
     }

@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/guilds', 'GuildController@index')->middleware('auth')->name('guilds');
 Route::post('/guild_add', 'GuildController@create')->middleware('auth');
+Route::get('/guild/{token}', 'QuestController@index')->middleware('auth')->name('quests');
 
 // Route::get( '/{path?}', function(){
 //     return view('welcome');

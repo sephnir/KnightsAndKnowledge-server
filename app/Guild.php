@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $creator_user_id
  * @property string $guild_token
  * @property string $name
+ * @property boolean $active
  * @property string $created_at
  * @property string $updated_at
  * @property User $user
+ * @property Quest[] $quests
  */
 class Guild extends Model
 {
@@ -25,7 +27,7 @@ class Guild extends Model
     /**
      * @var array
      */
-    protected $fillable = ['creator_user_id', 'guild_token', 'name', 'created_at', 'updated_at'];
+    protected $fillable = ['creator_user_id', 'guild_token', 'name', 'active', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -33,5 +35,13 @@ class Guild extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'creator_user_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function quests()
+    {
+        return $this->hasMany('App\Quest');
     }
 }
