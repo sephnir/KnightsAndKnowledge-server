@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 
 
-class UserController extends Controller
+class UserControllerAPI extends Controller
 
 {
     public $successStatus = 200;
@@ -31,7 +31,7 @@ class UserController extends Controller
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             return response()->json(['success' => $success], $this->successStatus);
         } else {
-            return response()->json(['error' => 'Invalid login'], 401);
+            return response()->json(['error' => 'Invalid credentials'], 401);
         }
     }
 
@@ -49,8 +49,8 @@ class UserController extends Controller
             'c_password' => 'required|same:password',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 401);
+        if($validator->fails()){
+            return response()->json(['error' => $validator->errors()->first()], 400);
         }
 
         $input = $request->all();

@@ -33,7 +33,7 @@ class GuildController extends Controller
             'name' => 'required'
         ]);
 
-        $name = $validatedData->name;
+        $name = $request->name;
 
         $guild = new Guild;
         $guild->name = $name;

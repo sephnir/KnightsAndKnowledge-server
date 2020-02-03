@@ -14,11 +14,11 @@ use Illuminate\Http\Request;
 */
 
 // Users
-Route::post('/login', 'API\UserController@login');
-Route::post('/register', 'API\UserController@register');
+Route::post('/login', 'API\UserControllerAPI@login');
+Route::post('/register', 'API\UserControllerAPI@register');
 
-Route::post('/details', 'API\UserController@details');
+Route::post('/details', 'API\UserControllerAPI@details');
 
 // Characters
-Route::post('/character/create', 'API\CharacterController@create');
-Route::post('/character/details', 'API\CharacterController@details');
+Route::post('/character/create', 'API\CharacterControllerAPI@create');
+Route::post('/character/details', 'API\CharacterControllerAPI@details');
