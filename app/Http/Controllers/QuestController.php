@@ -17,9 +17,13 @@ class QuestController extends Controller
     {
         $guild = Auth::user()->guilds->where('guild_token', $guild_token)->first();
 
+        if (!$guild) {
+            return abort(404);
+        }
+
         $quests = $guild->quests;
 
-        return view('guilds/quests/list_quests', ['quests' => $quests, 'guild_name' => $guild->name]);
+        return view('guilds/quests/list_quests', ['quests' => $quests, 'guild' => $guild]);
     }
 
     /**
@@ -27,9 +31,15 @@ class QuestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($guild_token)
     {
-        //
+        $guild = Auth::user()->guilds->where('guild_token', $guild_token)->first();
+
+        if (!$guild) {
+            return abort(404);
+        }
+
+        return view('guilds/quests/edit_quest', ['guild' => $guild]);
     }
 
     /**
@@ -40,7 +50,27 @@ class QuestController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'seed' => 'nullable|max:255',
+            'level' => 'required|integer|digits_between:1,255'
+        ]);
+
+        $guild = Auth::user()->guilds->find($request->gid);
+
+        if (!$guild) {
+            return abort(404);
+        }
+
+        $quest = new Quest;
+        $quest->guild_id = $guild->id;
+        $quest->name = $request->name;
+        $quest->boss = 0;
+        $quest->dungeon_seed = $request->seed;
+        $quest->level = $request->level;
+        $quest->save();
+
+        return redirect('/guild/' . $guild->guild_token);
     }
 
     /**
@@ -49,9 +79,17 @@ class QuestController extends Controller
      * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function show(Quest $quest)
+    public function show($quest_id)
     {
-        //
+        $quest = Quest::find($quest_id);
+        $guild = $quest->guild;
+        $user = Auth::user();
+
+        if ($user != $guild->user) {
+            return abort(404);
+        }
+
+        return view('guilds/quests/manage_quests', ['quest' => $quest]);
     }
 
     /**

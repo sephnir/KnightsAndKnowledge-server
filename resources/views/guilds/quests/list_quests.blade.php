@@ -3,6 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        @include('guilds.quests.guild_widget')
+
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">Quests</div>
@@ -14,27 +16,24 @@
                         </div>
                     @endif
 
-                    {{-- <form class="form-inline p-2" method="POST" action="{{ action('GuildController@create') }}">
-                        @csrf
-                        <input type="text" class="form-control" name="name" placeholder="Guild Name" />
-                        <button type="submit" class="btn btn-primary">+</button>
-                    </form> --}}
+                    <a class="btn btn-primary btn-lg btn-block" href="{{ route('quest_create', $guild->guild_token) }}">Create Quest</a>
 
                     @if($quests->count() > 0)
                         <table class="table table-hover">
+                            <caption>Select a quest to continue.</caption>
                             <thead>
                                 <th>Quest Name</th>
                             </thead>
                             <tbody>
                             @foreach($quests as $quest)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('quests', $guild->guild_token) }} '" >
+                                <tr class="cursor-pointer" onclick="window.location='{{ route('quest_show', $quest) }} '" >
                                     <td>{{ $quest->name }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     @else
-                        <div class="p-5 text-center">No quests created in guild <i>{{ $guild_name }}</i>. <br />Please create one to continue.</div>
+                        <div class="p-5 text-center">No quests created in guild <i>{{ $guild->name }}</i>. <br />Please create one to continue.</div>
                     @endif
                 </div>
             </div>

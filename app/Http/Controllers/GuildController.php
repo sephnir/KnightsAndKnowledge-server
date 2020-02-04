@@ -27,21 +27,9 @@ class GuildController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        $validatedData = $request->validate([
-            'name' => 'required'
-        ]);
-
-        $name = $request->name;
-
-        $guild = new Guild;
-        $guild->name = $name;
-        $guild->guild_token = self::unique_token();
-        $guild->creator_user_id = Auth::id();
-        $guild->save();
-
-        return redirect('guilds');
+        //
     }
 
     private function unique_token()
@@ -62,7 +50,19 @@ class GuildController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required'
+        ]);
+
+        $name = $request->name;
+
+        $guild = new Guild;
+        $guild->name = $name;
+        $guild->guild_token = self::unique_token();
+        $guild->creator_user_id = Auth::id();
+        $guild->save();
+
+        return redirect('guilds');
     }
 
     /**

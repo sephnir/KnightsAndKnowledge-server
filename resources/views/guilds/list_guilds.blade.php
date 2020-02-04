@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form class="form-inline p-2" method="POST" action="{{ action('GuildController@create') }}">
+                    <form class="form-inline p-2" method="POST" action="{{ action('GuildController@store') }}">
                         @csrf
                         <div class="form-group row">
                             <input type="text" class=" m-2 form-control @error('name') is-invalid @enderror"  name="name" required autofocus placeholder="Guild Name" />
@@ -29,6 +29,7 @@
 
                     @if($guilds->count() > 0)
                         <table class="table table-hover">
+                            <caption>Select a guild to continue.</caption>
                             <thead>
                                 <th>Guild Name</th>
                                 <th>Guild Code</th>
