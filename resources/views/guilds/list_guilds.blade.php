@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('routes.home')}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{__('routes.guilds')}}</li>
+        </ol>
+    </nav>
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -32,12 +39,12 @@
                             <caption>Select a guild to continue.</caption>
                             <thead>
                                 <th>Guild Name</th>
-                                <th>Guild Code</th>
+                                <th>Invitation Code</th>
                             </thead>
                             <tbody>
                             @foreach($guilds as $guild)
                                 <tr class="cursor-pointer" onclick="window.location='{{ route('quests', $guild->guild_token) }} '" >
-                                    <td class="col-md-10">{{ $guild->name }}</td>
+                                    <td class="col-md-9">{{ $guild->name }}</td>
                                     <td>{{ $guild->guild_token }}</td>
                                 </tr>
                             @endforeach

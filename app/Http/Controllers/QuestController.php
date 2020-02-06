@@ -89,7 +89,7 @@ class QuestController extends Controller
             return abort(404);
         }
 
-        return view('guilds/quests/manage_quests', ['quest' => $quest]);
+        return view('guilds/quests/manage_quest', ['guild' => $guild, 'quest' => $quest]);
     }
 
     /**
@@ -98,9 +98,17 @@ class QuestController extends Controller
      * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function edit(Quest $quest)
+    public function edit($quest_id)
     {
-        //
+        $quest = Quest::find($quest_id);
+        $guild = $quest->guild;
+        $user = Auth::user();
+
+        if ($user != $guild->user) {
+            return abort(404);
+        }
+
+        return view('guilds/quests/edit_quest', ['guild' => $guild, 'quest' => $quest]);
     }
 
     /**
@@ -110,9 +118,26 @@ class QuestController extends Controller
      * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Quest $quest)
+    public function update(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'seed' => 'nullable|max:255',
+            'level' => 'required|integer|digits_between:1,255'
+        ]);
+
+        $quest = Auth::user()->guilds->find($request->gid)->quests->find($request->id);
+
+        if (!$quest) {
+            return abort(404);
+        }
+
+        $quest->name = $request->name;
+        $quest->dungeon_seed = $request->seed;
+        $quest->level = $request->level;
+        $quest->save();
+
+        return redirect('/quest/' . $quest->id);
     }
 
     /**
