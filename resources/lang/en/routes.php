@@ -16,6 +16,6 @@ return [
     'quests' => 'Quests',
     'quest_manage' => 'Manage Quest',
     'quest_create' => 'Create New Quest',
-    'quest_edit' => 'Edit Quest'
+    'quest_edit' => 'Edit Quest Properties'
 
 ];

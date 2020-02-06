@@ -18,14 +18,13 @@
     </nav>
 
     <div class="row justify-content-center">
-        @include('guilds.quests.widget')
 
         <div class="col-md-8">
             <div class="card">
                 @if($quest ?? '')
-                    <div class="card-header">Edit Quest</div>
+                    <div class="card-header">{{__('routes.quest_edit')}}</div>
                 @else
-                    <div class="card-header">Create New Quest</div>
+                    <div class="card-header">{{__('routes.quest_create')}}</div>
                 @endif
 
                 <div class="card-body">
@@ -81,7 +80,8 @@
                         </div>
 
                         <div class="form-group row">
-                            <button type="submit" class="btn btn-primary col-md-4 offset-md-4">
+                            <button class="btn btn-secondary col-md-2 offset-md-4" onclick="history.back()">Back</button>
+                            <button type="submit" class="btn btn-primary col-md-2 offset-md-1">
                                 @if($quest ?? '')
                                     Update
                                 @else

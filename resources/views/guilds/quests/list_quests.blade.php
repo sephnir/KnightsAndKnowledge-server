@@ -34,7 +34,7 @@
                             </thead>
                             <tbody>
                             @foreach($quests as $quest)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('quest_show', $quest) }} '" >
+                                <tr class="cursor-pointer table-info" onclick="window.location='{{ route('quest_show', $quest) }} '" >
                                     <td>{{ $quest->name }}</td>
                                 </tr>
                             @endforeach

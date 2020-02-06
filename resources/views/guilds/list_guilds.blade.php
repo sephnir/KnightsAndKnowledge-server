@@ -43,7 +43,7 @@
                             </thead>
                             <tbody>
                             @foreach($guilds as $guild)
-                                <tr class="cursor-pointer" onclick="window.location='{{ route('quests', $guild->guild_token) }} '" >
+                                <tr class="cursor-pointer table-info" onclick="window.location='{{ route('quests', $guild->guild_token) }} '" >
                                     <td class="col-md-9">{{ $guild->name }}</td>
                                     <td>{{ $guild->guild_token }}</td>
                                 </tr>
