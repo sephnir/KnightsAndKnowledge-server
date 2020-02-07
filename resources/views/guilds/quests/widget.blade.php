@@ -1,6 +1,6 @@
 <div class="col-md-4">
     @if($guild ?? '')
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">Guild</div>
         <div class="card-body">
             <table class="table table-sm">
@@ -14,13 +14,13 @@
                 <tr />
             </table>
             <hr />
-            <button class="btn btn-danger col-md-3" data-toggle="modal" data-target="#exampleModal">Delete</button>
+            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
         </div>
     </div>
 
         @if($quest ?? '')
-        <br />
-        <div class="card">
+
+        <div class="card mb-4">
             <div class="card-header">Quest</div>
             <div class="card-body">
                 <table class="table table-sm">
@@ -38,7 +38,7 @@
                     </tr>
                 </table>
                 <hr />
-                <a class='btn btn-primary col-md-3' href='{{action('QuestController@edit', $quest->id)}}'>Edit</a>
+                <a class='btn btn-primary' href='{{action('QuestController@edit', $quest->id)}}'>Edit</a>
             </div>
         </div>
         @endif
