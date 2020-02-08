@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Topic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TopicController extends Controller
 {
@@ -13,7 +15,9 @@ class TopicController extends Controller
      */
     public function index()
     {
-        //
+        $topics = Auth::user()->topics;
+
+        return view('topics/list_topics', ['topics' => $topics]);
     }
 
     /**
@@ -23,7 +27,7 @@ class TopicController extends Controller
      */
     public function create()
     {
-        //
+        return view('topics/edit_topic');
     }
 
     /**
@@ -34,7 +38,18 @@ class TopicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+            'desc' => 'nullable|max:512'
+        ]);
+
+        $topic = new Topic;
+        $topic->name = $request->name;
+        $topic->description = $request->desc;
+        $topic->creator_user_id = Auth::id();
+        $topic->save();
+
+        return redirect('topics');
     }
 
     /**

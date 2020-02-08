@@ -22,7 +22,7 @@
 
                     <div class="row">
                         <div class="col-md-6">
-                            <a class="btn btn-primary btn-lg btn-block menu-btn" href="#" role="button">Manage Quiz</a>
+                            <a class="btn btn-primary btn-lg btn-block menu-btn" href="{{route('topics')}}" role="button">Manage Quiz</a>
                         </div>
                         <div class="col-md-6">
                             <a class="btn btn-primary btn-lg btn-block menu-btn" href="{{route('guilds')}}" role="button">Manage Guilds</a>

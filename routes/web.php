@@ -37,7 +37,7 @@ Route::get('/quest/{id}', 'QuestController@show')->middleware('auth')->name('que
 
 //Topic
 Route::get('/topics', 'TopicController@index')->middleware('auth')->name('topics');
-Route::get('/topic_create/{id}', 'TopicController@create')->middleware('auth')->name('topic_create');
+Route::get('/topic_create', 'TopicController@create')->middleware('auth')->name('topic_create');
 Route::post('/topic_add', 'TopicController@store')->middleware('auth');
 
 

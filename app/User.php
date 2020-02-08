@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Guild', 'creator_user_id');
     }
+
+    public function topics()
+    {
+        return $this->hasMany('App\Topic', 'creator_user_id');
+    }
 }

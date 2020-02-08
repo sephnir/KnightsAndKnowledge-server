@@ -51,7 +51,7 @@ class GuildController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'name' => 'required'
+            'name' => 'required|max:255'
         ]);
 
         $name = $request->name;

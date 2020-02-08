@@ -12,7 +12,7 @@ return [
     */
 
     'home' => 'Dashboard',
-    
+
     //Manage Guild segment
     'guilds' => 'Guilds',
     'quests' => 'Quests',
@@ -22,8 +22,8 @@ return [
 
     //Manage Quiz segment
     'topics' => 'Topics',
-    'topics_create' => 'Create New Topic',
-    'topics_edit' => 'Edit Topic',
+    'topic_create' => 'Create New Topic',
+    'topic_edit' => 'Edit Topic',
     'questions' => 'Questions',
     'question_create' => 'Create New Question',
     'question_edit' => 'Edit Question'

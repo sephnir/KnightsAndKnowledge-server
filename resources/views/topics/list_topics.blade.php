@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Guilds</div>
+                <div class="card-header">Topics</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -21,7 +21,9 @@
                         </div>
                     @endif
 
-                    @if($guilds->count() > 0)
+                    <a class="btn btn-primary btn-lg btn-block" href="{{ route('topic_create') }}">Create Topic</a>
+
+                    @if($topics->count() > 0)
                         <table class="table table-hover">
                             <caption>Select a topic to continue.</caption>
                             <thead>
@@ -31,7 +33,7 @@
                             <tbody>
                             @foreach($topics as $topic)
                                 <tr class="cursor-pointer table-info" onclick="window.location='{{ route('topics', $topic->id) }} '" >
-                                    <td class="col-md-9">{{ $topic->name }}</td>
+                                    <td class="col-md-4">{{ $topic->name }}</td>
                                     <td>{{ $topic->description }}</td>
                                 </tr>
                             @endforeach
