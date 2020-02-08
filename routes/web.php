@@ -35,6 +35,11 @@ Route::post('/quest_add', 'QuestController@store')->middleware('auth');
 Route::post('/quest_update', 'QuestController@update')->middleware('auth');
 Route::get('/quest/{id}', 'QuestController@show')->middleware('auth')->name('quest_show');
 
+//Topic
+Route::get('/topics', 'TopicController@index')->middleware('auth')->name('topics');
+Route::get('/topic_create/{id}', 'TopicController@create')->middleware('auth')->name('topic_create');
+Route::post('/topic_add', 'TopicController@store')->middleware('auth');
+
 
 // Route::get( '/{path?}', function(){
 //     return view('welcome');
