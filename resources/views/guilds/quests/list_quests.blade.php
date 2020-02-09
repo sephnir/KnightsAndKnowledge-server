@@ -11,7 +11,7 @@
     </nav>
 
     <div class="row justify-content-center">
-        @include('guilds.quests.widget')
+        @include('component.widget')
 
         <div class="col-md-8">
             <div class="card">

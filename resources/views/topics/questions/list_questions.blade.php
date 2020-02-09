@@ -5,15 +5,17 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">{{__('routes.home')}}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{__('routes.topics')}}</li>
+            <li class="breadcrumb-item"><a href="{{ route('topics') }}">{{__('routes.topics')}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{__('routes.questions')}}</li>
         </ol>
     </nav>
 
     <div class="row justify-content-center">
+        @include('component.widget')
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Topics</div>
+                <div class="card-header">Questions</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -22,26 +24,24 @@
                         </div>
                     @endif
 
-                    <a class="btn btn-primary btn-lg btn-block" href="{{ route('topic_create') }}">Create Topic</a>
+                    <a class="btn btn-primary btn-lg btn-block" href="{{ route('question_create', $topic->id) }}">Create Question</a>
 
-                    @if($topics->count() > 0)
+                    @if($questions->count() > 0)
                         <table class="table table-hover">
-                            <caption>Select a topic to continue.</caption>
+                            <caption>Select a question to continue.</caption>
                             <thead>
-                                <th>Topic</th>
-                                <th>Description</th>
+                                <th>Question</th>
                             </thead>
                             <tbody>
-                            @foreach($topics as $topic)
-                                <tr class="cursor-pointer table-info" onclick="window.location='{{ route('questions', $topic->id) }} '" >
-                                    <td class="col-md-4">{{ $topic->name }}</td>
-                                    <td>{{ $topic->description }}</td>
+                            @foreach($questions as $question)
+                                <tr class="cursor-pointer table-info" onclick="window.location='{{ route('question_edit', $question) }} '" >
+                                    <td>{{ $question->question }}</td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                     @else
-                        <div class="p-5 text-center">No topics created. Please create one to continue.</div>
+                        <div class="p-5 text-center">No questions created in topic <i>{{ $topic->name }}</i>. <br />Please create one to continue.</div>
                     @endif
                 </div>
             </div>

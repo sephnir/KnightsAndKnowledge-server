@@ -45,6 +45,44 @@
 
     @endif
 
+    @if($topic ?? '')
+    <div class="card mb-4">
+        <div class="card-header">Topic</div>
+        <div class="card-body">
+            <table class="table table-sm">
+                <tr>
+                    <td><b>Name </b></td>
+                    <td>{{ $topic->name }}</td>
+                <tr />
+                <tr>
+                    <td><b>Description </b></td>
+                    <td>{{ $topic->description }}</td>
+                <tr />
+            </table>
+            <hr />
+            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+        </div>
+    </div>
+
+        @if($question ?? '')
+
+        <div class="card mb-4">
+            <div class="card-header">Question</div>
+            <div class="card-body">
+                <table class="table table-sm">
+                    <tr>
+                        <td><b>Question </b></td>
+                        <td>{{ $question->question }}</td>
+                    <tr />
+                </table>
+                <hr />
+                <a class='btn btn-primary' href='{{action('QuestController@edit', $quest->id)}}'>Edit</a>
+            </div>
+        </div>
+        @endif
+
+    @endif
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

@@ -17,7 +17,7 @@ class Topic extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -26,6 +26,14 @@ class Topic extends Model
      * @var array
      */
     protected $fillable = ['name', 'description', 'deleted_at', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'creator_user_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
