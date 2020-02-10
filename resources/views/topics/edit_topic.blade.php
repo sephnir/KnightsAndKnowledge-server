@@ -47,7 +47,7 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Topic*</label>
                             <input type="text" class="col-md-6 form-control @error('name') is-invalid @enderror" value='{{$topic->name ?? ''}}'
-                                name="name" required placeholder="Name of the quest." />
+                                name="name" required placeholder="Name of the topic." />
                             @error('name')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
