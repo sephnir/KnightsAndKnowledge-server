@@ -88,7 +88,11 @@
                                     </td>
                                     <td>
                                         <input type='radio' class="form-control @error('correct') is-invalid @enderror" required value='{{$i}}'
-                                            name="correct" @if($ans_arr[$i]->correct ?? '') checked @endif />
+                                            name="correct" 
+                                            @if($ans_arr[$i]->correct ?? ($i==0)) 
+                                                checked 
+                                            @endif 
+                                        />
                                     </td>
                                 </tr>
                                 @endfor
