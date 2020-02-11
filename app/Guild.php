@@ -19,7 +19,7 @@ class Guild extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -28,6 +28,14 @@ class Guild extends Model
      * @var array
      */
     protected $fillable = ['creator_user_id', 'guild_token', 'name', 'active', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function characters()
+    {
+        return $this->belongsToMany('App\Character', 'characters_join_guilds', 'guild_id', 'character_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

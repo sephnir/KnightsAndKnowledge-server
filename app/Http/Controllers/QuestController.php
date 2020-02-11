@@ -91,7 +91,7 @@ class QuestController extends Controller
         }
 
         $topics = $user->topics;
-        $topics_active = $quest->topic;
+        $topics_active = $quest->topics;
 
         return view('guilds/quests/manage_quest', [
             'guild' => $guild,
@@ -173,7 +173,7 @@ class QuestController extends Controller
             return abort(404);
         }
 
-        $quest->topic()->sync($topics_id);
+        $quest->topics()->sync($topics_id);
 
         return self::show($request->quest_id);
     }

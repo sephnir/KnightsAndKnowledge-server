@@ -19,7 +19,7 @@ class Character extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -30,18 +30,18 @@ class Character extends Model
     protected $fillable = ['user_id', 'name', 'experience', 'money', 'created_at', 'updated_at'];
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function guilds()
+    {
+        return $this->belongsToMany('App\Guild', 'characters_join_guilds', 'character_id', 'guild_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function characterHoldsItems()
-    {
-        return $this->hasMany('App\CharacterHoldsItem');
     }
 }

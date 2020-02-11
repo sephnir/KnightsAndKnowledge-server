@@ -32,9 +32,9 @@ class Quest extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topic()
+    public function topics()
     {
-        return $this->belongsToMany('App\Topic', 'topics_in_quests', 'topic_id', 'quest_id');
+        return $this->belongsToMany('App\Topic', 'topics_in_quests', 'quest_id', 'topic_id');
     }
 
     /**

@@ -5,9 +5,12 @@ namespace App\Http\Controllers\API;
 use App\Guild;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GuildControllerAPI extends Controller
 {
+    public $successStatus = 200;
+
     /**
      * Display a listing of the resource.
      *
@@ -32,12 +35,22 @@ class GuildControllerAPI extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Guild  $guild
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show(Guild $guild)
+    public function details(Request $request)
     {
-        //
+        $user = Auth::guard('api')->user();
+        $token = strtoupper($request->token);
+        if ($user) {
+            $guild = Guild::where('guild_token', $token)->first();
+            if ($guild->id ?? '')
+                return response()->json(['success' => $guild], $this->successStatus);
+            else
+                return response()->json(['error' => 'Resource not found'], 404);
+        } else {
+            return response()->json(['error' => 'Session expired'], 401);
+        }
     }
 
     /**
