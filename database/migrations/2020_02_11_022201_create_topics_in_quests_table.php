@@ -17,7 +17,7 @@ class CreateTopicsInQuestsTable extends Migration
             $table->unsignedBigInteger('topic_id');
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->unsignedBigInteger('quest_id');
-            $table->foreign('quest_id')->references('id')->on('topics');
+            $table->foreign('quest_id')->references('id')->on('quests');
             $table->timestamps();
             $table->primary(array('topic_id', 'quest_id'));
         });
