@@ -32,7 +32,7 @@ class Question extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topics()
+    public function topic()
     {
         return $this->belongsTo('App\Topic');
     }
