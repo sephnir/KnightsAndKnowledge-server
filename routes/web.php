@@ -33,6 +33,7 @@ Route::get('/quest_create/{token}', 'QuestController@create')->middleware('auth'
 Route::get('/quest_edit/{id}', 'QuestController@edit')->middleware('auth')->name('quest_edit');
 Route::post('/quest_add', 'QuestController@store')->middleware('auth');
 Route::post('/quest_update', 'QuestController@update')->middleware('auth');
+Route::post('/quest_sync', 'QuestController@sync')->middleware('auth')->name('quest_sync');
 Route::get('/quest/{id}', 'QuestController@show')->middleware('auth')->name('quest_show');
 
 //Topic

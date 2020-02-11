@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Quest;
+use App\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -89,7 +90,15 @@ class QuestController extends Controller
             return abort(404);
         }
 
-        return view('guilds/quests/manage_quest', ['guild' => $guild, 'quest' => $quest]);
+        $topics = $user->topics;
+        $topics_active = $quest->topic;
+
+        return view('guilds/quests/manage_quest', [
+            'guild' => $guild,
+            'quest' => $quest,
+            'topics' => $topics,
+            'topics_active' => $topics_active
+        ]);
     }
 
     /**
@@ -115,7 +124,6 @@ class QuestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Quest  $quest
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -138,6 +146,36 @@ class QuestController extends Controller
         $quest->save();
 
         return redirect('/quest/' . $quest->id);
+    }
+
+    /**
+     * Update the relationship between quest and topic
+     */
+    public function sync(Request $request)
+    {
+        $topics_id = $request->topic;
+
+        foreach ($topics_id as $topic_id) {
+            $user = Auth::user();
+            $topic = Topic::find($topic_id);
+            if (!$topic) {
+                $topics_id = \array_diff($topics_id, [$topic_id]);
+            } else if ($topic->user != $user) {
+                $topics_id = \array_diff($topics_id, [$topic_id]);
+            }
+        }
+
+        $quest = Quest::find($request->quest_id);
+        $guild = $quest->guild;
+        $user = Auth::user();
+
+        if ($user != $guild->user) {
+            return abort(404);
+        }
+
+        $quest->topic()->sync($topics_id);
+
+        return self::show($request->quest_id);
     }
 
     /**

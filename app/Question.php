@@ -19,7 +19,7 @@ class Question extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -32,7 +32,7 @@ class Question extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function topic()
+    public function topics()
     {
         return $this->belongsTo('App\Topic');
     }

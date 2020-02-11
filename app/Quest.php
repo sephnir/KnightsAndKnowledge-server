@@ -19,7 +19,7 @@ class Quest extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -28,6 +28,14 @@ class Quest extends Model
      * @var array
      */
     protected $fillable = ['guild_id', 'name', 'boss', 'level', 'dungeon_seed', 'created_at', 'updated_at'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function topic()
+    {
+        return $this->belongsToMany('App\Topic', 'topics_in_quests', 'topic_id', 'quest_id');
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

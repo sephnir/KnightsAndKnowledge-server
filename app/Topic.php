@@ -36,6 +36,14 @@ class Topic extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function quests()
+    {
+        return $this->belongsToMany('App\Quest', 'topics_in_quests', 'quest_id', 'topic_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function questions()

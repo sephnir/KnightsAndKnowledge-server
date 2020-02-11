@@ -16,7 +16,7 @@
 
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Questions</div>
+                <div class="card-header">Include topics</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -25,7 +25,49 @@
                         </div>
                     @endif
 
-
+                    @if($topics ?? '')
+                        <form class="form p-2" action="{{action("QuestController@sync")}}" method="post">
+                            @csrf
+                            <input type="hidden" name="quest_id" value="{{$quest->id}}" />
+                            <table class="table">
+                                <thead>
+                                    <th>Include</th>
+                                    <th>Topics</th>
+                                    <th>Description</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($topics as $topic)
+                                        @php
+                                            $checked = false;
+                                            if($topics_active ?? ''){
+                                                foreach ($topics_active as $active) {
+                                                    if($active->id >= $topic->id){
+                                                        if($active->id == $topic->id)
+                                                            $checked = true;
+                                                        break;
+                                                    }
+                                                }
+                                            }
+                                        @endphp
+                                        <tr class='@if($checked) table-success @endif'>
+                                            <td>
+                                                <input type="checkbox" name="topic[]"
+                                                    @if($checked) checked @endif
+                                                    value="{{$topic->id}}" />
+                                            </td>
+                                            <td>
+                                                {{$topic->name}}
+                                            </td>
+                                            <td>
+                                                {{$topic->description}}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-primary">Update</button>
+                        </form>
+                    @endif
                 </div>
             </div>
         </div>
