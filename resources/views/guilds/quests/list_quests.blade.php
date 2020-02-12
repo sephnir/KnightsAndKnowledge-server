@@ -30,12 +30,14 @@
                         <table class="table table-hover">
                             <caption>Select a quest to continue.</caption>
                             <thead>
-                                <th>Quest Name</th>
+                                <th  class="col-md-10">Quest Name</th>
+                                <th># Topics Included</th>
                             </thead>
                             <tbody>
                             @foreach($quests as $quest)
                                 <tr class="cursor-pointer table-info" onclick="window.location='{{ route('quest_show', $quest) }} '" >
                                     <td>{{ $quest->name }}</td>
+                                    <td>{{ $quest->topic_count ?? '0' }}</td>
                                 </tr>
                             @endforeach
                             </tbody>

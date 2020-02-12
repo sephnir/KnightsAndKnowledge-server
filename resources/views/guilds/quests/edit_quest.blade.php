@@ -71,7 +71,7 @@
                         <div class="form-group row">
                             <label for="level" class="col-md-4 col-form-label text-md-right">Levels*</label>
                             <input type="number" class=" col-md-2 form-control @error('level') is-invalid @enderror" value='{{$quest->level ?? ''}}'
-                                name="level" required placeholder="Levels" min="1" max="5"/>
+                                name="level" required placeholder="Levels" min="1" max="255"/>
                             @error('level')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

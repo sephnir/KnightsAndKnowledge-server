@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Quest;
 use App\Topic;
 use Illuminate\Http\Request;
@@ -22,7 +23,13 @@ class QuestController extends Controller
             return abort(404);
         }
 
-        $quests = $guild->quests;
+        $quests = $guild->quests()->select("quests.*")
+            ->select("quests.*", DB::raw("COUNT(topics.id) as topic_count"))
+            ->leftjoin("topics_in_quests", "quests.id", "=", "topics_in_quests.quest_id")
+            ->leftjoin("topics", "topics_in_quests.topic_id", "=", "topics.id")
+            ->groupBy(DB::getSchemaBuilder()->getColumnListing('quests'))
+            ->get();
+
 
         return view('guilds/quests/list_quests', ['quests' => $quests, 'guild' => $guild]);
     }

@@ -25,5 +25,8 @@ Route::post('/character/details', 'API\CharacterControllerAPI@details');
 Route::post('/character/join', 'API\CharacterControllerAPI@join_guild');
 Route::post('/character/joined', 'API\CharacterControllerAPI@joined_guilds');
 
-// Guild
+// Guilds
 Route::post('/guild/details', 'API\GuildControllerAPI@details');
+
+// Quests
+Route::post('/quest/list', 'API\QuestControllerAPI@index');
