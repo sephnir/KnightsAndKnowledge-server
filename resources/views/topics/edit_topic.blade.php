@@ -56,6 +56,16 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="sprite" class="col-md-4 col-form-label text-md-right">Monster Sprite</label>
+                            <input type="file" class="col-md-6 form-control" name="sprite" />
+                            @error('sprite')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group row">
                             <label for="desc" class="col-md-4 col-form-label text-md-right">Description</label>
                             <textarea class="col-md-6 form-control @error('desc') is-invalid @enderror" value='{{$topic->description ?? ''}}'
                                 name="desc" placeholder="Description of the topic. (Max 512 characters)"></textarea>

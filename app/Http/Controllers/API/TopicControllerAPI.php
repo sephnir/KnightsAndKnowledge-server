@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Guild;
+use App\Quest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class QuestControllerAPI extends Controller
+class TopicControllerAPI extends Controller
 {
     public $successStatus = 200;
 
@@ -23,17 +23,13 @@ class QuestControllerAPI extends Controller
         if(!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
-        $guild = Guild::where('guild_token', $request->token ?? '')->first();
+        $topics = Quest::find($request->quest_id)->topics;
 
-        if (!($guild->id ?? ''))
-            return response()->json(['error' => 'No quests available currently in this guild.'], 404);
+        foreach($topics as $topic){
+            $topic->questions;
+        }
 
-        $quests = $guild->quests()->has('topics')->get();
-
-        if ($quests)
-            return response()->json(['success' => $quests], $this->successStatus);
-        else
-            return response()->json(['error' => 'No quests available currently in this guild.'], 404);
+        return response()->json(['success' => $topics], $this->successStatus);
     }
 
     /**

@@ -30,3 +30,6 @@ Route::post('/guild/details', 'API\GuildControllerAPI@details');
 
 // Quests
 Route::post('/quest/list', 'API\QuestControllerAPI@index');
+
+// Topics
+Route::post('/topic/list', 'API\TopicControllerAPI@index');
