@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Quest;
+use App\Question;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class TopicControllerAPI extends Controller
+class QuestionControllerAPI extends Controller
 {
     public $successStatus = 200;
 
@@ -23,13 +24,22 @@ class TopicControllerAPI extends Controller
         if(!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
-        $topics = Quest::find($request->quest_id)->topics;
-
+        $topics = Quest::find($request->quest_id)->topics()->select("id")->get();
+        $topics_arr = [];
         foreach($topics as $topic){
-            $topic->questions;
+            $questions = $topic->questions()->select("id","question","type")->get();
+            foreach($questions as $question){
+                $answers = $question->answers()->select("id","answer","correct")->get();
+                $question->answers = $answers;
+            }
+
+            if(count($questions) > 0){
+                $topic->questions = $questions;
+                array_push($topics_arr, $topic);
+            }
         }
 
-        return response()->json(['success' => $topics], $this->successStatus);
+        return response()->json(['success' => $topics_arr], $this->successStatus);
     }
 
     /**
@@ -46,12 +56,18 @@ class TopicControllerAPI extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $user = Auth::guard('api')->user();
+        if(!$user)
+            return response()->json(['error' => 'Session expired'], 401);
+
+        $answers = Question::find($request->question_id)->answers;
+
+        return response()->json(['success' => $answers], $this->successStatus);
     }
 
     /**

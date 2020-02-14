@@ -31,5 +31,6 @@ Route::post('/guild/details', 'API\GuildControllerAPI@details');
 // Quests
 Route::post('/quest/list', 'API\QuestControllerAPI@index');
 
-// Topics
-Route::post('/topic/list', 'API\TopicControllerAPI@index');
+// Questions
+Route::post('/topic/list', 'API\QuestionControllerAPI@index');
+Route::post('/question/show', 'API\QuestionControllerAPI@show');
