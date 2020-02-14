@@ -58,9 +58,11 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="seed" class="col-md-4 col-form-label text-md-right">Dungeon Seed</label>
+                            <label for="seed" class="col-md-4 col-form-label text-md-right">Dungeon Seed<br />
+                                <span class="text-secondary">(Uses 'Quest Name' if empty)</span>
+                            </label>
                             <input type="text" class="col-md-6 form-control @error('seed') is-invalid @enderror" value='{{$quest->dungeon_seed ?? ''}}'
-                                name="seed" placeholder="For randomly generating dungeon." />
+                                name="seed" placeholder="For consistent procedual dungeon." />
                             @error('seed')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>

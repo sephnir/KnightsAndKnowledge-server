@@ -56,7 +56,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="sprite" class="col-md-4 col-form-label text-md-right">Monster Sprite</label>
+                            <label for="sprite" class="col-md-4 col-form-label text-md-right">Monster Sprite<br />
+                                <span class="text-secondary">(64x64 pixel image)</span>
+                            </label>
                             <input type="file" class="col-md-6 form-control" name="sprite" />
                             @error('sprite')
                                 <span class="invalid-feedback" role="alert">
