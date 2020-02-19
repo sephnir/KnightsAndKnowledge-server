@@ -20,7 +20,7 @@ class QuestControllerAPI extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        if(!$user)
+        if (!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
         $guild = Guild::where('guild_token', $request->token ?? '')->first();
@@ -29,9 +29,16 @@ class QuestControllerAPI extends Controller
             return response()->json(['error' => 'No quests available currently in this guild.'], 404);
 
         $quests = $guild->quests()->has('topics')->get();
+        $quest_arr = [];
 
-        if ($quests)
-            return response()->json(['success' => $quests], $this->successStatus);
+        foreach ($quests as $quest) {
+            if (sizeof($quest->topics()->has('questions')->get()) > 0) {
+                array_push($quest_arr, $quest);
+            }
+        }
+
+        if (sizeof($quest_arr) > 0)
+            return response()->json(['success' => $quest_arr], $this->successStatus);
         else
             return response()->json(['error' => 'No quests available currently in this guild.'], 404);
     }
