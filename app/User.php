@@ -57,4 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Topic', 'creator_user_id');
     }
+
+    public function attempts()
+    {
+        return $this->hasMany('App\Attempt');
+    }
 }

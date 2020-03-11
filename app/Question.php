@@ -14,12 +14,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property Topic $topic
  * @property Answer[] $answers
+ * @property Attempt[] $attempts
  */
 class Question extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     *
+     * 
      * @var string
      */
     protected $keyType = 'integer';
@@ -43,5 +44,13 @@ class Question extends Model
     public function answers()
     {
         return $this->hasMany('App\Answer');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function attempts()
+    {
+        return $this->hasMany('App\Attempt');
     }
 }

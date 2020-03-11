@@ -38,6 +38,14 @@ class Character extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function quests()
+    {
+        return $this->belongsToMany('App\Quest', 'quest_clear', 'character_id', 'quest_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

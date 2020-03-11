@@ -38,6 +38,14 @@ class Quest extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function characters()
+    {
+        return $this->belongsToMany('App\Character', 'quest_clear', 'quest_id', 'character_id');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function guild()

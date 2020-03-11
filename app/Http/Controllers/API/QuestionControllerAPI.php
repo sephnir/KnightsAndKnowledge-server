@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Quest;
 use App\Question;
+use App\Guild;
+use App\Attempt;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,6 +71,37 @@ class QuestionControllerAPI extends Controller
 
         return response()->json(['success' => $answers], $this->successStatus);
     }
+
+    /**
+     * Update the quest with new attempts.
+     * 
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function attempt(Request $request){
+        $user = Auth::guard('api')->user();
+        if (!$user)
+            return response()->json(['error' => 'Session expired'], 401);
+
+        $guild = Guild::where('guild_token', $request->token ?? '')->first();
+        if(!$guild) return response()->json(['error' => 'Invalid guild token'], 401);
+        $quest = $guild->quests()->find($request->questID);
+        if(!$quest) return response()->json(['error' => 'Invalid quest ID'], 401);
+        $topic = $quest->topics()->find($request->topicID);
+        if(!$topic) return response()->json(['error' => 'Invalid topic ID'], 401);
+        $question = $topic->questions()->find($request->questionID);
+        if(!$question) return response()->json(['error' => 'Invalid question ID'], 401);
+        
+        $attempt = new Attempt;
+        $attempt->question_id = $request->questionID;
+        $attempt->user_id = $user->id;
+        $attempt->answer_id = $request->answerID;
+
+        $attempt->save();
+
+        return response()->json(['success' => 'true'], $this->successStatus);
+    }
+
 
     /**
      * Update the specified resource in storage.
