@@ -34,9 +34,9 @@
                     @endif
 
                     @if($topic ?? '')
-                        <form class="form p-2" method="POST" action="{{ action('TopicController@update') }}">
+                        <form class="form p-2" method="POST" action="{{ action('TopicController@update') }}" enctype="multipart/form-data">
                     @else
-                        <form class="form p-2" method="POST" action="{{ action('TopicController@store') }}">
+                        <form class="form p-2" method="POST" action="{{ action('TopicController@store') }}" enctype="multipart/form-data">
                     @endif
 
                         @csrf
@@ -46,36 +46,43 @@
 
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Topic*</label>
-                            <input type="text" class="col-md-6 form-control @error('name') is-invalid @enderror" value='{{$topic->name ?? ''}}'
-                                name="name" required placeholder="Name of the topic." />
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="col-md-6">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" value='{{$topic->name ?? ''}}'
+                                    name="name" required placeholder="Name of the topic." />
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-group row">
                             <label for="sprite" class="col-md-4 col-form-label text-md-right">Monster Sprite<br />
                                 <span class="text-secondary">(64x64 pixel image)</span>
                             </label>
-                            <input type="file" class="col-md-6 form-control" name="sprite" />
-                            @error('sprite')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="col-md-6">
+                                <input type="file" class="form-control @error('sprite') is-invalid @enderror" id="sprite" name="sprite" />
+                                @error('sprite')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
                         </div>
 
                         <div class="form-group row">
                             <label for="desc" class="col-md-4 col-form-label text-md-right">Description</label>
-                            <textarea class="col-md-6 form-control @error('desc') is-invalid @enderror" value='{{$topic->description ?? ''}}'
-                                name="desc" placeholder="Description of the topic. (Max 512 characters)"></textarea>
-                            @error('desc')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <div class="col-md-6">
+                                <textarea class="form-control @error('desc') is-invalid @enderror" value='{{$topic->description ?? ''}}'
+                                    name="desc" placeholder="Description of the topic. (Max 512 characters)"></textarea>
+                                @error('desc')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-group row">

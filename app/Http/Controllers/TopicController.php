@@ -40,13 +40,17 @@ class TopicController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
-            'desc' => 'nullable|max:512'
+            'sprite' => 'nullable|image|mimes:jpeg,jpg,png,gif|dimensions:width=64,height=64',
+            'desc' => 'nullable|max:512',
         ]);
+
+        $path = $request->file('sprite')->store('sprite');
 
         $topic = new Topic;
         $topic->name = $request->name;
         $topic->description = $request->desc;
         $topic->creator_user_id = Auth::id();
+        $topic->sprite_path = $path;
         $topic->save();
 
         return redirect('topics');
