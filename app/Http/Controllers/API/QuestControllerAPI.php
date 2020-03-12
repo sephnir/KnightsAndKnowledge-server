@@ -46,7 +46,7 @@ class QuestControllerAPI extends Controller
 
     /**
      * Clears a quest while adding rewards to a character.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -57,26 +57,28 @@ class QuestControllerAPI extends Controller
             return response()->json(['error' => 'Session expired'], 401);
 
         $guild = Guild::where('guild_token', $request->token ?? '')->first();
-        if(!$guild) return response()->json(['error' => 'Invalid guild token'], 401);
+        if (!$guild) return response()->json(['error' => 'Invalid guild token'], 401);
         $quest = $guild->quests()->find($request->questID);
-        if(!$quest) return response()->json(['error' => 'Invalid quest ID'], 401);
+        if (!$quest) return response()->json(['error' => 'Invalid quest ID'], 401);
         $character = $user->characters()->find($request->characterID);
-        if(!$character) return response()->json(['error' => 'Invalid character ID'], 401);
+        if (!$character) return response()->json(['error' => 'Invalid character ID'], 401);
 
         $reward = $request->reward;
+        $max_reward = 0;
         $diff = 0;
-        $clear_data = $quest->characters()->find($request->characterID);
-        if($clear_data){
-            if($reward > $clear_data->pivot->reward){
-                $diff = $reward - $clear_data->reward;
-            }
-            $reward = max($reward, $clear_data->reward);
+        $character = $quest->characters()->withPivot("max_reward")->find($request->characterID);
+        if ($character) {
+            $max_reward = $character->pivot->max_reward;
         }
+        if ($reward > $max_reward) {
+            $diff = $reward - $max_reward;
+        }
+        $reward = max($reward, $max_reward);
 
         $character->money += $diff;
 
         DB::beginTransaction();
-        try{
+        try {
             $character->save();
             $quest->characters()->sync([
                 $request->characterID => [
@@ -87,6 +89,8 @@ class QuestControllerAPI extends Controller
             DB::rollback();
             throw $e;
         }
+
+        DB::commit();
 
         return response()->json(['success' => true], $this->successStatus);
     }
