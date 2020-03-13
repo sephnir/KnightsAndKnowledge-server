@@ -23,19 +23,19 @@ class QuestionControllerAPI extends Controller
     public function index(Request $request)
     {
         $user = Auth::guard('api')->user();
-        if(!$user)
+        if (!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
-        $topics = Quest::find($request->quest_id)->topics()->select("id")->get();
+        $topics = Quest::find($request->quest_id)->topics()->select("id", "sprite_path")->get();
         $topics_arr = [];
-        foreach($topics as $topic){
-            $questions = $topic->questions()->select("id","question","type")->get();
-            foreach($questions as $question){
-                $answers = $question->answers()->select("id","answer","correct")->get();
+        foreach ($topics as $topic) {
+            $questions = $topic->questions()->select("id", "question", "type")->get();
+            foreach ($questions as $question) {
+                $answers = $question->answers()->select("id", "answer", "correct")->get();
                 $question->answers = $answers;
             }
 
-            if(count($questions) > 0){
+            if (count($questions) > 0) {
                 $topic->questions = $questions;
                 array_push($topics_arr, $topic);
             }
@@ -64,7 +64,7 @@ class QuestionControllerAPI extends Controller
     public function show(Request $request)
     {
         $user = Auth::guard('api')->user();
-        if(!$user)
+        if (!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
         $answers = Question::find($request->question_id)->answers;
@@ -74,24 +74,25 @@ class QuestionControllerAPI extends Controller
 
     /**
      * Update the quest with new attempts.
-     * 
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function attempt(Request $request){
+    public function attempt(Request $request)
+    {
         $user = Auth::guard('api')->user();
         if (!$user)
             return response()->json(['error' => 'Session expired'], 401);
 
         $guild = Guild::where('guild_token', $request->token ?? '')->first();
-        if(!$guild) return response()->json(['error' => 'Invalid guild token'], 401);
+        if (!$guild) return response()->json(['error' => 'Invalid guild token'], 401);
         $quest = $guild->quests()->find($request->questID);
-        if(!$quest) return response()->json(['error' => 'Invalid quest ID'], 401);
+        if (!$quest) return response()->json(['error' => 'Invalid quest ID'], 401);
         $topic = $quest->topics()->find($request->topicID);
-        if(!$topic) return response()->json(['error' => 'Invalid topic ID'], 401);
+        if (!$topic) return response()->json(['error' => 'Invalid topic ID'], 401);
         $question = $topic->questions()->find($request->questionID);
-        if(!$question) return response()->json(['error' => 'Invalid question ID'], 401);
-        
+        if (!$question) return response()->json(['error' => 'Invalid question ID'], 401);
+
         $attempt = new Attempt;
         $attempt->question_id = $request->questionID;
         $attempt->user_id = $user->id;

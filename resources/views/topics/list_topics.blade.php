@@ -28,13 +28,19 @@
                         <table class="table table-hover">
                             <caption>Select a topic to continue.</caption>
                             <thead>
+                                <th></th>
                                 <th>Topic</th>
                                 <th>Description</th>
                             </thead>
                             <tbody>
                             @foreach($topics as $topic)
                                 <tr class="cursor-pointer table-info" onclick="window.location='{{ route('questions', $topic->id) }} '" >
-                                    <td class="col-md-4">{{ $topic->name }}</td>
+                                    <td width=64>
+                                        @if($topic->sprite_path)
+                                            <img src="{{ asset('/storage/sprite/'.$topic->sprite_path) }}" class="float-right"/>
+                                        @endif
+                                    </td>
+                                    <td class="col-md-4">{{ $topic->name }} </td>
                                     <td>{{ $topic->description }}</td>
                                 </tr>
                             @endforeach

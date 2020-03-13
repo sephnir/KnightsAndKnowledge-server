@@ -44,13 +44,14 @@ class TopicController extends Controller
             'desc' => 'nullable|max:512',
         ]);
 
-        $path = $request->file('sprite')->store('sprite');
+        $path = $request->file('sprite')->store('public/sprite');
+        $filename = basename($path);
 
         $topic = new Topic;
         $topic->name = $request->name;
         $topic->description = $request->desc;
         $topic->creator_user_id = Auth::id();
-        $topic->sprite_path = $path;
+        $topic->sprite_path = $filename;
         $topic->save();
 
         return redirect('topics');
