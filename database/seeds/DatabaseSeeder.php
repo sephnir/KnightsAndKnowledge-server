@@ -15,15 +15,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        //Create 3 tutors
-        factory(App\User::class, 3)->state('tutor')->create()->each(
-            function ($tutor) {
-                $this->createMathTopics($tutor);
-            }
-        );
+        //Setup password grant
+        $this->setupPasswordGrant();
+
+        //Create 1 tutor
+        $tutor = factory(App\User::class)->state('tutor')->create();
+        $this->createMathTopics($tutor);
 
         //Create 30 students
         factory(App\User::class, 30)->state('student')->create();
+    }
+
+    private function setupPasswordGrant()
+    {
+        DB::table('oauth_clients')->insert([
+            'name' => 'Knights & Knowledge Password Grant Client',
+            'secret' => 'TzzipodhcJHdkv8bhIC37st3z9MBKn94MRRtw1Tw',
+            'redirect' => 'http://localhost',
+            'personal_access_client' => 0,
+            'password_client' => 1,
+            'revoked' => 0
+        ]);
     }
 
     private function createMathTopics($tutor)
