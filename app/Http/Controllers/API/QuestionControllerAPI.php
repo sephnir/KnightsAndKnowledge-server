@@ -69,6 +69,9 @@ class QuestionControllerAPI extends Controller
 
         $answers = Question::find($request->question_id)->answers;
 
+        if (!$answers)
+            return response()->json(['error' => 'Resource not found'], 404);
+
         return response()->json(['success' => $answers], $this->successStatus);
     }
 

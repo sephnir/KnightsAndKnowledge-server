@@ -92,7 +92,7 @@ class CharacterControllerAPI extends Controller
 
             if ($guild->id ?? '' && $char->id ?? '') {
                 $char->guilds()->sync($guild->id, false);
-                return response()->json(['success' => $guild], $this->successStatus);
+                return response()->json(['success' => true], $this->successStatus);
             } else
                 return response()->json(['error' => 'Resource not found'], 404);
 
