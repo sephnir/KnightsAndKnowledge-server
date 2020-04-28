@@ -13,8 +13,8 @@
                     <td>{{$guild->guild_token}}</td>
                 <tr />
             </table>
-            <hr />
-            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+            {{-- <hr />
+            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button> --}}
         </div>
     </div>
 
@@ -59,8 +59,8 @@
                     <td>{{ $topic->description }}</td>
                 <tr />
             </table>
-            <hr />
-            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button>
+            {{-- <hr />
+            <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">Delete</button> --}}
         </div>
     </div>
 
