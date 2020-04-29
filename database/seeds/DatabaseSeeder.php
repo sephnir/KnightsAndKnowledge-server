@@ -28,14 +28,18 @@ class DatabaseSeeder extends Seeder
 
     private function setupPasswordGrant()
     {
-        DB::table('oauth_clients')->insert([
-            'name' => 'Knights & Knowledge Password Grant Client',
-            'secret' => 'TzzipodhcJHdkv8bhIC37st3z9MBKn94MRRtw1Tw',
-            'redirect' => 'http://localhost',
-            'personal_access_client' => 0,
-            'password_client' => 1,
-            'revoked' => 0
-        ]);
+        DB::table('oauth_clients')->updateOrInsert(
+            ['id' => 1],
+            [
+                'id' => 1,
+                'name' => 'Knights & Knowledge Password Grant Client',
+                'secret' => 'TzzipodhcJHdkv8bhIC37st3z9MBKn94MRRtw1Tw',
+                'redirect' => 'http://localhost',
+                'personal_access_client' => 0,
+                'password_client' => 1,
+                'revoked' => 0
+            ]
+        );
     }
 
     private function createMathTopics($tutor)

@@ -1,74 +1,48 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+## Prerequisites
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+- [XAMPP v7.3.10](https://xampp.site/) (or just ensure that [PHP v7.3.10>](https://www.php.net/) and [MariaDB v10.4.8>](https://mariadb.org/) is installed)
+- [Composer v1.9.0>](https://getcomposer.org/) (PHP Dependency Manager)
+- [NodeJS v13.7.0>](https://nodejs.org/)
 
-## About Laravel
+## Setup
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Step 1: Installing Dependencies
+Run `composer install` and `npm install`, `npm audit fix`.
+#### Step 2: Environment Variables
+Ensure that in the root of the project folder, a *.env* file is created. Rename the *.env.example* file to *.env* and change the *DB_* segment accordingly to your database setup.
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=database
+DB_USERNAME=username
+DB_PASSWORD=password
+```
+#### Step 3: Project Setup
+To link server storage, run `php artisan storage:link`. This will create a symbolic link *storage* in *public*. 
+To generate passport key, run `php artisan passport:keys`, then `php artisan key:generate`.
+To setup schema to your database, run `php artisan migrate` or `php artisan migrate --seed`. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Step 4: Data Seeding (Optional)
+Once migration is done, you can fill it with generated dataset using `php artisan db:seed`. (this is done automatically if you run `php artisan migrate --seed` instead of `php artisan migrate`)
+Dataset consists of:
+- 1 tutor account
+- 30 student accounts
+- 4 topics under the tutor account
+- 40 questions for each topics, with a total of 160 questions
+- 4 answers for each question
+- 1 password grant (for use with the game client)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+All generated user accounts' password are 'password'.
 
-## Learning Laravel
+Note that sprite assets for each topic are not generated from seeding. Manually include the following files into '' 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Step 4.5: Password Grant
+If you skipped data seeding, you will still need to have a password grant entry in your database for use with your game client later. To generate one, run `php artisan passport:client --password`.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+#### Step 5: 
+Build frontend using `npm run dev` or `npm run prod`.
+To start serving, run `php artisan serve`.  
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Laravel Documentation
+For an in-depth documentation on Laravel, visit Laravel Documentation page at https://laravel.com/docs/7.x.
