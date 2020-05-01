@@ -29,7 +29,7 @@ Dataset consists of:
 - 1 tutor account
 - 30 student accounts
 - 4 topics under the tutor account
-- 40 questions for each topics, with a total of 160 questions
+- 10 questions for each topics, with a total of 40 questions
 - 4 answers for each question
 - 1 password grant (for use with the game client)
 
