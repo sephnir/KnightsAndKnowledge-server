@@ -13,6 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Users
+Route::post('/login', 'API\UserControllerAPI@login');
+Route::post('/register', 'API\UserControllerAPI@register');
+
+Route::post('/details', 'API\UserControllerAPI@details');
+
+// Characters
+Route::post('/character/create', 'API\CharacterControllerAPI@create');
+Route::post('/character/details', 'API\CharacterControllerAPI@details');
+Route::post('/character/join', 'API\CharacterControllerAPI@join_guild');
+Route::post('/character/joined', 'API\CharacterControllerAPI@joined_guilds');
+
+// Guilds
+Route::post('/guild/details', 'API\GuildControllerAPI@details');
+
+// Quests
+Route::post('/quest/list', 'API\QuestControllerAPI@index');
+Route::post('/quest/clear', 'API\QuestControllerAPI@clear');
+
+// Questions
+Route::post('/topic/list', 'API\QuestionControllerAPI@index');
+Route::post('/question/show', 'API\QuestionControllerAPI@show');
+Route::post('/question/attempt', 'API\QuestionControllerAPI@attempt');

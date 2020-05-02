@@ -1,1 +1,21 @@
-//
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+#content {
+    //background: url("../img/bg/town-min.jpg");
+    height: 100%;
+}
+
+.menu-btn {
+    padding: 5em 0;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}

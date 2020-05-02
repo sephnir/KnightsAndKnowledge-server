@@ -5,10 +5,11 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'type'
     ];
 
     /**
@@ -36,4 +37,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * One to many relation. (users<=characters)
+     *
+     * @return character
+     */
+    public function characters()
+    {
+        return $this->hasMany(Character::class);
+    }
+
+    public function guilds()
+    {
+        return $this->hasMany('App\Guild', 'creator_user_id');
+    }
+
+    public function topics()
+    {
+        return $this->hasMany('App\Topic', 'creator_user_id');
+    }
+
+    public function attempts()
+    {
+        return $this->hasMany('App\Attempt');
+    }
 }
